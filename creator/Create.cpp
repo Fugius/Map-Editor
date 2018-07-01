@@ -83,6 +83,7 @@ void Create::update(Event *event, RenderWindow *window) {
       map->setSize(Vector2f(screenSize.x * 0.75 * 0.8, 0.5625 * screenSize.x * 0.75 * 0.8));
       map->setPos(Vector2f(screenSize.x * 0.25 + screenSize.x * 0.075, screenSize.y / 2 - map->getSize().y / 2));
       map->genSecondaryFloors(screenSize.y);
+      map->hideItems(true);
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) {
@@ -96,6 +97,7 @@ void Create::update(Event *event, RenderWindow *window) {
       map->setSize(Vector2f(screenSize.x * 0.75 * 0.8, 0.5625 * screenSize.x * 0.75 * 0.8));
       map->setPos(Vector2f(screenSize.x * 0.25 + screenSize.x * 0.075, screenSize.y / 2 - map->getSize().y / 2));
       map->genSecondaryFloors(screenSize.y);
+      map->hideItems(true);
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) {
@@ -109,6 +111,7 @@ void Create::update(Event *event, RenderWindow *window) {
       map->setSize(Vector2f(screenSize.x * 0.75 * 0.8, 0.5625 * screenSize.x * 0.75 * 0.8));
       map->setPos(Vector2f(screenSize.x * 0.25 + screenSize.x * 0.075, screenSize.y / 2 - map->getSize().y / 2));
       map->genSecondaryFloors(screenSize.y);
+      map->hideItems(true);
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4)) {
@@ -122,6 +125,7 @@ void Create::update(Event *event, RenderWindow *window) {
       map->setSize(Vector2f(screenSize.x * 0.75 * 0.8, 0.5625 * screenSize.x * 0.75 * 0.8));
       map->setPos(Vector2f(screenSize.x * 0.25 + screenSize.x * 0.075, screenSize.y / 2 - map->getSize().y / 2));
       map->genSecondaryFloors(screenSize.y);
+      map->hideItems(true);
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::F5)) {
@@ -335,8 +339,10 @@ void Create::saveMap(bool editing) {
 
   str << world << "\n" << "#" << "\n";
 
-  for (auto a : *map->getGroundEntities()) {
-    for (auto b : a) {
+  for (int i = 0; i < (*map->getGroundEntities())[0].size(); i++) {
+    for (int j = 0; j < map->getGroundEntities()->size(); j++) {
+
+      Entity *b = (*map->getGroundEntities())[j][i];
 
       if (b->getTexture() == "blank" && !editing)
         str << "V";
@@ -378,13 +384,17 @@ void Create::saveMap(bool editing) {
         str << "P";
 
     }
+
     str << "\n";
   }
 
   str << "#" << "\n";
 
-  for (auto a : *map->getItemsEntities()) {
-    for (auto b : a) {
+  for (int i = 0; i < (*map->getItemsEntities())[0].size(); i++) {
+    for (int j = 0; j < map->getItemsEntities()->size(); j++) {
+
+      Entity *b = (*map->getItemsEntities())[j][i];
+
       if (b->getTexture() == "blank" && !editing)
         str << "V";
 

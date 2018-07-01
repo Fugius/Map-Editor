@@ -1,3 +1,4 @@
 bin/ressources/*
 include/*
 bin/*.cpp
+bin/*.exe
